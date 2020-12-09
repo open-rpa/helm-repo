@@ -1,0 +1,150 @@
+{{- if .Values.openflow.license_key }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: grafana
+  name: grafana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - image: openiap/grafana:1.0.5
+          name: grafana
+          ports:
+            - containerPort: 3000
+              name: http
+          env:
+            - name: GF_AUTH_GENERIC_OAUTH_ENABLED
+              value: "true"
+            - name: GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP
+              value: "true"
+            - name: GF_AUTH_GENERIC_OAUTH_NAME
+              value: "OpenFlow"
+            - name: GF_AUTH_GENERIC_OAUTH_CLIENT_ID
+              value: {{ .Values.grafana.oauth_client_id | quote }}
+            - name: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
+              value: {{ .Values.grafana.oauth_client_secret | quote }}
+            - name: GF_AUTH_GENERIC_OAUTH_SCOPES
+              value: "user:email"
+            - name: GF_AUTH_GENERIC_OAUTH_EMAIL_ATTRIBUTE_PATH
+              value: "email"
+            - name: GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH
+              value: "role"
+            - name: GF_AUTH_GENERIC_OAUTH_AUTH_URL
+              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}/oauth/login"
+            - name: GF_AUTH_GENERIC_OAUTH_TOKEN_URL
+              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}/oauth/token"
+            - name: GF_AUTH_GENERIC_OAUTH_API_URL
+              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}/oauth/authorize"
+            - name: GF_AUTH_DISABLE_LOGIN_FORM
+              value: "true"
+            - name: GF_AUTH_ANONYMOUS_ENABLED
+              value: "false"
+            - name: GF_USERS_ALLOW_SIGN_UP
+              value: "false"
+            - name: GF_SERVER_DOMAIN
+              value: "grafana.{{ .Values.domain }}.{{ .Values.domainsuffix }}"
+            - name: GF_SERVER_ROOT_URL
+              value: "{{ .Values.protocol }}://grafana.{{ .Values.domain }}.{{ .Values.domainsuffix }}"
+          volumeMounts:
+            - name: grafana-storage
+              mountPath: /var/lib/grafana
+            - mountPath: /etc/grafana/provisioning/datasources
+              name: grafana-datasources
+              readOnly: false
+      volumes:
+        - name: grafana-storage
+          persistentVolumeClaim:
+            claimName: grafana-storage
+        - name: grafana-datasources
+          configMap:
+            defaultMode: 420
+            name: grafana-datasources
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        fsGroup: 472
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+data:
+  openflow.yaml: |-
+    {
+        "apiVersion": 1,
+        "datasources": [
+            {
+              "name": "OpenFlow",
+              "type": "grafana-openflow-datasource",
+              "access":"proxy",
+              "url": "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}/grafana",
+              "withCredentials": true,
+              "isDefault": 1,
+              "editable": true,
+              "orgId": 1,
+              "version": 1,
+              "jsonData": {
+                "tlsAuth": false,
+                "tlsAuthWithCACert": false,
+                "oauthPassThru": true
+              }
+            }
+        ]
+    }
+  prometheus.yaml: |-
+    {
+        "apiVersion": 1,
+        "datasources": [
+            {
+              "name": "Prometheus",
+              "type": "prometheus",
+              "access":"proxy",
+              "url": "http://prometheus:9090",
+              "editable": true,
+              "orgId": 1,
+              "version": 1
+            }
+        ]
+    }
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: grafana-storage
+  annotations:
+    helm.sh/resource-policy: "keep"
+  labels:
+    app: grafana
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  labels:
+    name: grafana
+spec:
+  type: NodePort
+  ports:
+    - port: 3000
+      targetPort: 3000
+      name: grafana
+  selector:
+    app: grafana
+{{- end }}
