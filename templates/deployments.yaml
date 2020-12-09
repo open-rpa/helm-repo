@@ -87,7 +87,7 @@ spec:
             - name: auto_create_personal_nodered_group
               value: {{ .Values.openflow.auto_create_personal_nodered_group | quote }}
             - name: nodered_domain_schema
-              value: "$nodered_id$.{{ .Release.Namespace }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+              value: "$nodered_id$.{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
             - name: protocol
               value: {{ .Values.protocol | quote }}
             - name: port
@@ -125,7 +125,7 @@ spec:
               value: {{ .Values.mongodb.auth.database | quote }}
 {{- else }}
             - name: mongodb_url
-              value: {{ required "A valid .Values.mongodb_url entry required!" .Values.openflow.mongodb_url | quote }}
+              value: {{ required "A valid .Values.openflow.external_mongodb_url entry required!" .Values.openflow.external_mongodb_url | quote }}
             - name: mongodb_db
               value: {{ .Release.Namespace | quote }}
 {{- end }}
@@ -135,6 +135,8 @@ spec:
               value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
             - name: domain
               value: "{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+            - name: nodered_allow_nodeselector
+              value: {{ .Values.openflow.nodered_allow_nodeselector | quote }}
 ---
 apiVersion: apps/v1
 kind: Deployment
