@@ -13,7 +13,7 @@ domain: demo
 # if traefic is for https using websecure, the you can uncomment the below 2 lines
 # you need to tell the name of the secret containing the certificate, I can recomend using kubed for replicating this
 # protocol: https
-# tlsSecret: wild.demo.openrpa.dk
+# tlsSecret: wild.mydomain.com
 openflow:
 #  external_mongodb_url: mongodb+srv://user:pass@cluster0.gcp.mongodb.net?retryWrites=true&w=majority
 rabbitmq:
