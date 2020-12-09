@@ -3,7 +3,7 @@ domainsuffix:
 protocol: http
 tlsSecret: 
 openflow:
-  image: openiap/openflow:edge
+  image: openiap/openflow
   nodered_image: 
   replicas: 1
   port: 80
