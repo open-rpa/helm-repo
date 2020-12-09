@@ -3,8 +3,8 @@ domainsuffix:
 protocol: http
 tlsSecret: 
 openflow:
-  image: openiap/openflow:1.1.110
-  nodered_image: openiap/nodered:1.1.110
+  image: openiap/openflow:edge
+  nodered_image: 
   replicas: 1
   port: 80
   auto_create_users: true

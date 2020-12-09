@@ -5,7 +5,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 4.4.2
-    created: "2020-12-09T17:15:54.9873424+01:00"
+    created: "2020-12-09T17:28:39.0635067+01:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -38,14 +38,29 @@ entries:
   openflow:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-09T17:15:54.9823425+01:00"
+    created: "2020-12-09T17:28:39.058508+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://charts.bitnami.com/bitnami
       version: 10.x
     description: A Helm chart for deploying a single openflow instance
-    digest: c122de6d7fb0d7112350784cd6177628455604f9510db6bf82bed7f1e3aab04c
+    digest: 232497a1cc1e9b7576d656c672b677211acba0c17781af6beba3fa31914b9a64
+    name: openflow
+    type: application
+    urls:
+    - openflow-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-12-09T17:28:39.0455063+01:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.x
+    description: A Helm chart for deploying a single openflow instance
+    digest: d94e57b438b6780d35806014213533b250d6961331c34014117879f88dcfaa40
     name: openflow
     type: application
     urls:
@@ -53,7 +68,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-09T17:15:54.9713423+01:00"
+    created: "2020-12-09T17:28:39.0345038+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -66,4 +81,4 @@ entries:
     urls:
     - openflow-0.1.0.tgz
     version: 0.1.0
-generated: "2020-12-09T17:15:54.9623435+01:00"
+generated: "2020-12-09T17:28:39.0255049+01:00"
