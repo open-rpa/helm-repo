@@ -78,7 +78,9 @@ spec:
               value: {{ .Values.openflow.websocket_max_package_count | quote }}
             - name: nodered_image
               value: {{ .Values.openflow.nodered_image | quote }}
-            - name: force_queue_prefix
+            - name: amqp_force_queue_prefix
+              value: {{ .Values.openflow.force_queue_prefix | quote }}
+            - name: amqp_force_exchange_prefix
               value: {{ .Values.openflow.force_queue_prefix | quote }}
             - name: namespace
               value: {{ .Release.Namespace | quote }}
