@@ -26,7 +26,7 @@ subjects:
   name: openflow-api-user
 ---
 {{- if .Values.openflow.nodered_allow_nodeselector  }}
-  {{- if not (lookup "v1" "ClusterRole" "default" "node-reader-role") }}
+  {{- if not (lookup "rbac.authorization.k8s.io/v1" "ClusterRole" .Release.Namespace "node-reader-role") }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
