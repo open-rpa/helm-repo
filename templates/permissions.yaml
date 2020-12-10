@@ -32,7 +32,8 @@ kind: ClusterRole
 metadata:
   name: node-reader-role
   namespace: default
-#  helm.sh/resource-policy: keep
+  annotations:
+    helm.sh/resource-policy: keep
 rules:
 - apiGroups: [""]
   resources: ["nodes", "nodes/proxy"]
