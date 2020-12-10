@@ -6,10 +6,10 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
 {{- if and .Values.tlsSecret (eq .Values.protocol "https") }}
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 {{- else }}
     traefik.ingress.kubernetes.io/router.entrypoints: web
 {{- end }}
-    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
     - host: "{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
@@ -58,6 +58,7 @@ metadata:
     kubernetes.io/ingress.class: traefik
 {{- if and .Values.tlsSecret (eq .Values.protocol "https") }}
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 {{- else }}
     traefik.ingress.kubernetes.io/router.entrypoints: web
 {{- end }}
