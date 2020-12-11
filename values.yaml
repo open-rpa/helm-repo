@@ -2,6 +2,7 @@ NODE_ENV: production
 domainsuffix: 
 protocol: http
 tlsSecret: 
+nodeSelector: {} # remeber to set under mongodb too
 openflow:
   image: openiap/openflow
   nodered_image: 
@@ -86,4 +87,6 @@ mongodb:
     enabled: true
     accessMode: ReadWriteOnce
     size: 8Gi
-
+  nodeSelector: {}
+  arbiter:
+    nodeSelector: {}

@@ -19,6 +19,9 @@ spec:
         prometheus.io/port: {{ .Values.openflow.port | quote }}
     spec:
       serviceAccountName: openflow-api-user
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
       containers:
         - name: api
           image: {{ default "openiap/openflow" .Values.openflow.image | quote }}
@@ -164,6 +167,9 @@ spec:
         role: rabbitmq
         environment: production
     spec:
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
       containers:
         - name: rabbitmq
           #image: rabbitmq:3-management

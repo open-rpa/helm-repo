@@ -15,6 +15,9 @@ spec:
       labels:
         app: prometheus
     spec:
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
       securityContext:
         fsGroup: 65534
       containers:
