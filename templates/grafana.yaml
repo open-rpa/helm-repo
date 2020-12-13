@@ -1,6 +1,9 @@
 {{- if .Values.openflow.license_key }}
 {{- $domain := print (required "domain required!" .Values.domain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
-{{- $apidomain := print (ternary .Values.apidomain .Values.domain (ne .Values.apidomain "")) "." (required "domainsuffix required!" .Values.domainsuffix) }}
+{{- $apidomain := $domain }}
+{{- if .Values.apidomain }}
+  {{- $dummy := set . "apidomain" .Values.apidomain "." (required "domainsuffix required!" .Values.domainsuffix) }}
+{{- end }}
 {{- $apiuri := print .Values.protocol "://" $apidomain }}
 {{- if .Values.port }}
   {{- $dummy := set . "apiuri" .Values.protocol ":" .Values.port "://" $apidomain }}
