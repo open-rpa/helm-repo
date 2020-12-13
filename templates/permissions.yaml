@@ -9,7 +9,7 @@ metadata:
   name: openflow-api-role
 rules:
 - apiGroups: ["*"]
-  resources: ["pods", "deployments", "services", "ingresses", "replicasets"]
+  resources: ["pods", "pods/log", "deployments", "services", "ingresses", "replicasets"]
   # resources: ["*/*"]
   verbs: ["get", "watch", "list", "create", "update", "patch", "delete"]
 ---

@@ -1,8 +1,11 @@
 NODE_ENV: production
 domainsuffix: 
+domain:
+apidomain:
 protocol: http
 tlsSecret: 
 nodeSelector: {} # remeber to set under mongodb too
+port:
 openflow:
   image: openiap/openflow
   nodered_image: openiap/nodered
@@ -43,10 +46,11 @@ openflow:
   aes_secret: who_ever_said_nodejs_isnt_sexy_should_be_shot_and_hanged
   nodered_allow_nodeselector: false
   nodered_requests_memory:
+  nodered_requests_cpu:
+  nodered_limits_cpu:
   nodered_limits_memory:
   resources: {}
   api_ws_url:
-  nodered_ws_url:
   # limits:
   #   #   cpu: "1"
   #   #memory: 1Gi

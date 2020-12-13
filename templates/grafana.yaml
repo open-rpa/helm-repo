@@ -1,4 +1,13 @@
 {{- if .Values.openflow.license_key }}
+{{- $domain := print (required "domain required!" .Values.domain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
+{{- $apidomain := print (required "domain required!" .Values.domain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
+{{- if .Values.apidomain }}
+  {{- $apidomain := print (required "domain required!" .Values.apidomain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
+{{- end }}
+{{- $apiuri := print (required "domain required!" .Values.protocol) "://" $apidomain }}
+{{- if .Values.port }}
+  {{- $apiuri := print (required "domain required!" .Values.protocol) ":" .Values.port "://" $apidomain }}
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -44,23 +53,11 @@ spec:
             - name: GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH
               value: "role"
             - name: GF_AUTH_GENERIC_OAUTH_AUTH_URL
-{{- if .Values.port }}
-              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}:{{ .Values.port }}/oauth/login"
-{{- else }}
-              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}/oauth/login"
-{{- end }}
+              value: "{{ $apiuri }}/oauth/login"
             - name: GF_AUTH_GENERIC_OAUTH_TOKEN_URL
-{{- if .Values.port }}
-              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}:{{ .Values.port }}/oauth/token"
-{{- else }}
-              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}/oauth/token"
-{{- end }}
+              value: "{{ $apiuri }}/oauth/token"
             - name: GF_AUTH_GENERIC_OAUTH_API_URL
-{{- if .Values.port }}
-              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}:{{ .Values.port }}/oauth/authorize"
-{{- else }}
-              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}/oauth/authorize"
-{{- end }}
+              value: "{{ $apiuri }}/oauth/authorize"
             - name: GF_AUTH_DISABLE_LOGIN_FORM
               value: "true"
             - name: GF_AUTH_ANONYMOUS_ENABLED
@@ -68,12 +65,12 @@ spec:
             - name: GF_USERS_ALLOW_SIGN_UP
               value: "false"
             - name: GF_SERVER_DOMAIN
-              value: "grafana.{{ .Values.domain }}.{{ .Values.domainsuffix }}"
+              value: "grafana.{{ $domain }}"
             - name: GF_SERVER_ROOT_URL
 {{- if .Values.port }}
-              value: "{{ .Values.protocol }}://grafana.{{ .Values.domain }}.{{ .Values.domainsuffix }}:{{ .Values.port }}"
+              value: "{{ .Values.protocol }}://grafana.{{ $domain }}:{{ .Values.port }}"
 {{- else }}
-              value: "{{ .Values.protocol }}://grafana.{{ .Values.domain }}.{{ .Values.domainsuffix }}"
+              value: "{{ .Values.protocol }}://grafana.{{ $domain }}"
 {{- end }}
           volumeMounts:
             - name: grafana-storage
@@ -107,7 +104,7 @@ data:
               "name": "OpenFlow",
               "type": "grafana-openflow-datasource",
               "access":"proxy",
-              "url": "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}/grafana",
+              "url": "http://api/grafana",
               "withCredentials": true,
               "isDefault": 1,
               "editable": true,

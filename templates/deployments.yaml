@@ -1,3 +1,9 @@
+{{- $domain := print (required "domain required!" .Values.domain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
+{{- $apidomain := print (ternary .Values.apidomain .Values.domain (ne .Values.apidomain "")) "." (required "domainsuffix required!" .Values.domainsuffix) }}
+{{- $apiuri := print .Values.protocol "://" $apidomain }}
+{{- if .Values.port }}
+  {{- $dummy := set . "apiuri" .Values.protocol ":" .Values.port "://" $apidomain }}
+{{- end }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -92,7 +98,7 @@ spec:
             - name: auto_create_personal_nodered_group
               value: {{ .Values.openflow.auto_create_personal_nodered_group | quote }}
             - name: nodered_domain_schema
-              value: "$nodered_id$.{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+              value: "$nodered_id$.{{ $domain }}"
             - name: protocol
               value: {{ .Values.protocol | quote }}
             - name: port
@@ -123,14 +129,10 @@ spec:
 {{- if .Values.openflow.saml_federation_metadata }}
               value: {{ .Values.openflow.saml_federation_metadata | quote }}
 {{- else }}
-  {{- if .Values.port }}
-              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}:{{ .Values.port }}/issue/FederationMetadata/2007-06/FederationMetadata.xml"
-  {{- else }}
-              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}/issue/FederationMetadata/2007-06/FederationMetadata.xml"
-  {{- end }}
+              value: "{{ $apiuri }}/issue/FederationMetadata/2007-06/FederationMetadata.xml"
 {{- end }}
             - name: saml_issuer
-              value: "uri:{{ required "A valid .Values.domain entry required!" .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+              value: "uri:{{ $apidomain }}"
 {{- if .Values.mongodb.enabled }}
   {{- if eq .Values.mongodb.architecture "replicaset" }}
             - name: mongodb_url
@@ -157,27 +159,9 @@ spec:
             - name: amqp_url
               value: "amqp://{{ .Values.rabbitmq.default_user }}:{{ .Values.rabbitmq.default_pass }}@rabbitmq"
             - name: api_ws_url
-{{- if .Values.openflow.api_ws_url }}
               value: {{ .Values.openflow.api_ws_url  | quote }}
-{{- else }}
-  {{- if .Values.port }}
-    {{- if eq .Values.protocol "http" }}
-              value: "ws://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}:{{ .Values.port }}"
-    {{- else }}
-              value: "wss://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}:{{ .Values.port }}"
-    {{- end }}
-  {{- else }}
-    {{- if eq .Values.protocol "http" }}
-              value: "ws://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
-    {{- else }}
-              value: "wss://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
-    {{- end }}
-  {{- end }}
-{{- end }}
-            - name: nodered_ws_url
-              value: {{ .Values.openflow.nodered_ws_url  | quote }}
             - name: domain
-              value: "{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+              value: "{{ $apidomain }}"
             - name: nodered_allow_nodeselector
               value: {{ .Values.openflow.nodered_allow_nodeselector | quote }}
             - name: nodered_requests_memory

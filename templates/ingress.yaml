@@ -1,3 +1,5 @@
+{{- $domain := print (required "domain required!" .Values.domain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
+{{- $apidomain := print (ternary .Values.apidomain .Values.domain (ne .Values.apidomain "")) "." (required "domainsuffix required!" .Values.domainsuffix) }}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -6,7 +8,9 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
 {{- if eq .Values.protocol "https" }}
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
-    # traefik.ingress.kubernetes.io/router.tls: "true"
+  {{- if .Values.tlsSecret }}
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  {{- end }}
   {{- if .Values.certresolver }}
     traefik.ingress.kubernetes.io/router.tls.certresolver: {{ .Values.certresolver | quote }}
   {{- end }}
@@ -15,14 +19,14 @@ metadata:
 {{- end }}
 spec:
   rules:
-    - host: "{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+    - host: "{{ $apidomain }}"
       http:
         paths:
           - path: /
             backend:
               serviceName: api
               servicePort: www
-    - host: "mq.{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+    - host: "mq.{{ $domain }}"
       http:
         paths:
           - path: /
@@ -30,7 +34,7 @@ spec:
               serviceName: rabbitmq
               servicePort: rabbitmq-mgnt
 {{- if .Values.openflow.license_key }}
-    - host: "grafana.{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+    - host: "grafana.{{ $domain }}"
       http:
         paths:
           - path: /
@@ -39,7 +43,7 @@ spec:
               servicePort: grafana
 {{- end }}
 {{- if and .Values.openflow.license_key (eq .Values.prometheus.enabled true) (eq .Values.prometheus.exposed true) }}
-    - host: "prometheus.{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+    - host: "prometheus.{{ $domain }}"
       http:
         paths:
           - path: /
@@ -61,7 +65,9 @@ metadata:
     kubernetes.io/ingress.class: traefik
 {{- if eq .Values.protocol "https" }}
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
-    # traefik.ingress.kubernetes.io/router.tls: "true"
+  {{- if .Values.tlsSecret }}
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  {{- end }}
   {{- if .Values.certresolver }}
     traefik.ingress.kubernetes.io/router.tls.certresolver: {{ .Values.certresolver | quote }}
   {{- end }}
@@ -70,7 +76,7 @@ metadata:
 {{- end }}
 spec:
   rules:
-    - host: "random.{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+    - host: "random.{{ $domain }}"
       http:
         paths:
           - path: /
