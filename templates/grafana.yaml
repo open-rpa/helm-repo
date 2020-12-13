@@ -1,13 +1,11 @@
 {{- if .Values.openflow.license_key }}
 {{- $domain := print (required "domain required!" .Values.domain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
-{{- $apidomain := print (required "domain required!" .Values.domain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
-{{- if .Values.apidomain }}
-  {{- $apidomain := print (required "domain required!" .Values.apidomain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
-{{- end }}
-{{- $apiuri := print (required "domain required!" .Values.protocol) "://" $apidomain }}
+{{- $apidomain := print (ternary .Values.apidomain .Values.domain (ne .Values.apidomain "")) "." (required "domainsuffix required!" .Values.domainsuffix) }}
+{{- $apiuri := print .Values.protocol "://" $apidomain }}
 {{- if .Values.port }}
-  {{- $apiuri := print (required "domain required!" .Values.protocol) ":" .Values.port "://" $apidomain }}
+  {{- $dummy := set . "apiuri" .Values.protocol ":" .Values.port "://" $apidomain }}
 {{- end }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
