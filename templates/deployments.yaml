@@ -182,8 +182,12 @@ spec:
               value: {{ .Values.openflow.nodered_allow_nodeselector | quote }}
             - name: nodered_requests_memory
               value: {{ .Values.openflow.nodered_requests_memory  | quote }}
+            - name: nodered_requests_cpu
+              value: {{ .Values.openflow.nodered_requests_cpu  | quote }}
             - name: nodered_limits_memory
               value: {{ .Values.openflow.nodered_limits_memory  | quote }}
+            - name: nodered_limits_cpu
+              value: {{ .Values.openflow.nodered_limits_cpu  | quote }}
 ---
 apiVersion: apps/v1
 kind: Deployment
