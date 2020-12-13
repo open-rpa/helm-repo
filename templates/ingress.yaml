@@ -4,9 +4,12 @@ metadata:
   name: ingress
   annotations:
     kubernetes.io/ingress.class: "traefik"
-{{- if and .Values.tlsSecret (eq .Values.protocol "https") }}
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
+{{- if eq .Values.protocol "https" }}
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    # traefik.ingress.kubernetes.io/router.tls: "true"
+  {{- if .Values.certresolver }}
+    traefik.ingress.kubernetes.io/router.tls.certresolver: {{ .Values.certresolver | quote }}
+  {{- end }}
 {{- else }}
     traefik.ingress.kubernetes.io/router.entrypoints: web
 {{- end }}
@@ -56,9 +59,12 @@ metadata:
   name: useringress
   annotations:
     kubernetes.io/ingress.class: traefik
-{{- if and .Values.tlsSecret (eq .Values.protocol "https") }}
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    traefik.ingress.kubernetes.io/router.tls: "true"
+{{- if eq .Values.protocol "https" }}
+    traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
+    # traefik.ingress.kubernetes.io/router.tls: "true"
+  {{- if .Values.certresolver }}
+    traefik.ingress.kubernetes.io/router.tls.certresolver: {{ .Values.certresolver | quote }}
+  {{- end }}
 {{- else }}
     traefik.ingress.kubernetes.io/router.entrypoints: web
 {{- end }}
@@ -69,7 +75,7 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: nodered0
+              serviceName: api
               servicePort: www
 {{ if $ingress }}
   {{- range $k, $v := (lookup "extensions/v1beta1" "Ingress" .Release.Namespace "useringress").spec.rules }}

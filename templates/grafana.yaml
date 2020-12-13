@@ -44,11 +44,23 @@ spec:
             - name: GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH
               value: "role"
             - name: GF_AUTH_GENERIC_OAUTH_AUTH_URL
+{{- if .Values.port }}
+              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}:{{ .Values.port }}/oauth/login"
+{{- else }}
               value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}/oauth/login"
+{{- end }}
             - name: GF_AUTH_GENERIC_OAUTH_TOKEN_URL
+{{- if .Values.port }}
+              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}:{{ .Values.port }}/oauth/token"
+{{- else }}
               value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}/oauth/token"
+{{- end }}
             - name: GF_AUTH_GENERIC_OAUTH_API_URL
+{{- if .Values.port }}
+              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}:{{ .Values.port }}/oauth/authorize"
+{{- else }}
               value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ .Values.domainsuffix }}/oauth/authorize"
+{{- end }}
             - name: GF_AUTH_DISABLE_LOGIN_FORM
               value: "true"
             - name: GF_AUTH_ANONYMOUS_ENABLED
@@ -58,7 +70,11 @@ spec:
             - name: GF_SERVER_DOMAIN
               value: "grafana.{{ .Values.domain }}.{{ .Values.domainsuffix }}"
             - name: GF_SERVER_ROOT_URL
+{{- if .Values.port }}
+              value: "{{ .Values.protocol }}://grafana.{{ .Values.domain }}.{{ .Values.domainsuffix }}:{{ .Values.port }}"
+{{- else }}
               value: "{{ .Values.protocol }}://grafana.{{ .Values.domain }}.{{ .Values.domainsuffix }}"
+{{- end }}
           volumeMounts:
             - name: grafana-storage
               mountPath: /var/lib/grafana

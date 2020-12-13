@@ -5,7 +5,7 @@ tlsSecret:
 nodeSelector: {} # remeber to set under mongodb too
 openflow:
   image: openiap/openflow
-  nodered_image: 
+  nodered_image: openiap/nodered
   replicas: 1
   port: 80
   auto_create_users: true
@@ -42,7 +42,11 @@ openflow:
   log_deletes: false
   aes_secret: who_ever_said_nodejs_isnt_sexy_should_be_shot_and_hanged
   nodered_allow_nodeselector: false
+  nodered_requests_memory:
+  nodered_limits_memory:
   resources: {}
+  api_ws_url:
+  nodered_ws_url:
   # limits:
   #   #   cpu: "1"
   #   #memory: 1Gi

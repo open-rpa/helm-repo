@@ -120,7 +120,15 @@ spec:
             - name: singing_key
               value: {{ .Values.openflow.singing_key | quote }}
             - name: saml_federation_metadata
+{{- if .Values.openflow.saml_federation_metadata }}
+              value: {{ .Values.openflow.saml_federation_metadata | quote }}
+{{- else }}
+  {{- if .Values.port }}
+              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}:{{ .Values.port }}/issue/FederationMetadata/2007-06/FederationMetadata.xml"
+  {{- else }}
               value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}/issue/FederationMetadata/2007-06/FederationMetadata.xml"
+  {{- end }}
+{{- end }}
             - name: saml_issuer
               value: "uri:{{ required "A valid .Values.domain entry required!" .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
 {{- if .Values.mongodb.enabled }}
@@ -138,17 +146,44 @@ spec:
 {{- else }}
             - name: mongodb_url
               value: {{ required "A valid .Values.openflow.external_mongodb_url entry required!" .Values.openflow.external_mongodb_url | quote }}
+  {{- if .Values.openflow.mongodb_db }}
+            - name: mongodb_db
+              value: {{ .Values.openflow.mongodb_db  | quote }}
+  {{- else }}
             - name: mongodb_db
               value: {{ .Release.Namespace | quote }}
+  {{- end }}
 {{- end }}
             - name: amqp_url
               value: "amqp://{{ .Values.rabbitmq.default_user }}:{{ .Values.rabbitmq.default_pass }}@rabbitmq"
             - name: api_ws_url
-              value: "{{ .Values.protocol }}://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+{{- if .Values.openflow.api_ws_url }}
+              value: {{ .Values.openflow.api_ws_url  | quote }}
+{{- else }}
+  {{- if .Values.port }}
+    {{- if eq .Values.protocol "http" }}
+              value: "ws://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}:{{ .Values.port }}"
+    {{- else }}
+              value: "wss://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}:{{ .Values.port }}"
+    {{- end }}
+  {{- else }}
+    {{- if eq .Values.protocol "http" }}
+              value: "ws://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+    {{- else }}
+              value: "wss://{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
+    {{- end }}
+  {{- end }}
+{{- end }}
+            - name: nodered_ws_url
+              value: {{ .Values.openflow.nodered_ws_url  | quote }}
             - name: domain
               value: "{{ .Values.domain }}.{{ required "A valid .Values.domainsuffix entry required!" .Values.domainsuffix }}"
             - name: nodered_allow_nodeselector
               value: {{ .Values.openflow.nodered_allow_nodeselector | quote }}
+            - name: nodered_requests_memory
+              value: {{ .Values.openflow.nodered_requests_memory  | quote }}
+            - name: nodered_limits_memory
+              value: {{ .Values.openflow.nodered_limits_memory  | quote }}
 ---
 apiVersion: apps/v1
 kind: Deployment
