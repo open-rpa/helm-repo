@@ -60,14 +60,18 @@ spec:
               value: {{ .Values.openflow.log_updates | quote }}
             - name: log_deletes
               value: {{ .Values.openflow.log_deletes | quote }}
-            - name: socket_rate_limit_duration
-              value: {{ .Values.openflow.socket_rate_limit_duration | quote }}
+            - name: socket_rate_limit
+              value: {{ .Values.openflow.socket_rate_limit | quote }}
             - name: socket_rate_limit_points
               value: {{ .Values.openflow.socket_rate_limit_points | quote }}
-            - name: api_rate_limit_duration
-              value: {{ .Values.openflow.api_rate_limit_duration | quote }}
+            - name: socket_rate_limit_duration
+              value: {{ .Values.openflow.socket_rate_limit_duration | quote }}
+            - name: api_rate_limit
+              value: {{ .Values.openflow.api_rate_limit | quote }}
             - name: api_rate_limit_points
               value: {{ .Values.openflow.api_rate_limit_points | quote }}
+            - name: api_rate_limit_duration
+              value: {{ .Values.openflow.api_rate_limit_duration | quote }}
             - name: supports_watch
               value: {{ .Values.openflow.supports_watch | quote }}
             - name: license_key
@@ -175,6 +179,8 @@ spec:
               value: {{ .Values.openflow.nodered_limits_memory  | quote }}
             - name: nodered_limits_cpu
               value: {{ .Values.openflow.nodered_limits_cpu  | quote }}
+            - name: prometheus_measure_nodeid
+              value: {{ .Values.openflow.prometheus_measure_nodeid  | quote }}              
 ---
 apiVersion: apps/v1
 kind: Deployment

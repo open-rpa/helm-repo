@@ -5,7 +5,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 4.4.2
-    created: "2020-12-14T01:42:36.8212414+01:00"
+    created: "2020-12-14T10:58:21.6011373+01:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -38,14 +38,14 @@ entries:
   openflow:
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2020-12-14T01:42:36.7582477+01:00"
+    created: "2020-12-14T10:58:21.5309667+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://charts.bitnami.com/bitnami
       version: 10.x
     description: A Helm chart for deploying a single openflow instance
-    digest: 64f211e8bee47739ae10e3523d78f4d5347c37f7dd1e3e485163383f9dbcac81
+    digest: 76f1a40cc53945c8a7e1aa9f7fd3467815207a5c49fcb4f2fcc584addda49006
     name: openflow
     type: application
     urls:
@@ -53,7 +53,7 @@ entries:
     version: 0.1.19
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2020-12-14T01:42:36.7512418+01:00"
+    created: "2020-12-14T10:58:21.5249679+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -68,7 +68,7 @@ entries:
     version: 0.1.18
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2020-12-14T01:42:36.7462446+01:00"
+    created: "2020-12-14T10:58:21.5189677+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -83,7 +83,7 @@ entries:
     version: 0.1.17
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2020-12-14T01:42:36.7402435+01:00"
+    created: "2020-12-14T10:58:21.510965+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -98,7 +98,7 @@ entries:
     version: 0.1.16
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2020-12-14T01:42:36.734242+01:00"
+    created: "2020-12-14T10:58:21.5049651+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -113,7 +113,7 @@ entries:
     version: 0.1.15
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2020-12-14T01:42:36.7272433+01:00"
+    created: "2020-12-14T10:58:21.497965+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -128,7 +128,7 @@ entries:
     version: 0.1.14
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2020-12-14T01:42:36.722243+01:00"
+    created: "2020-12-14T10:58:21.4909649+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -143,7 +143,7 @@ entries:
     version: 0.1.13
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2020-12-14T01:42:36.717246+01:00"
+    created: "2020-12-14T10:58:21.4829663+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -158,7 +158,7 @@ entries:
     version: 0.1.12
   - apiVersion: v2
     appVersion: 1.1.126
-    created: "2020-12-14T01:42:36.7102434+01:00"
+    created: "2020-12-14T10:58:21.4769667+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -173,7 +173,7 @@ entries:
     version: 0.1.11
   - apiVersion: v2
     appVersion: 1.1.125
-    created: "2020-12-14T01:42:36.7052431+01:00"
+    created: "2020-12-14T10:58:21.4709673+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -188,7 +188,7 @@ entries:
     version: 0.1.10
   - apiVersion: v2
     appVersion: 1.1.117
-    created: "2020-12-14T01:42:36.8152467+01:00"
+    created: "2020-12-14T10:58:21.5971393+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -203,7 +203,7 @@ entries:
     version: 0.1.9
   - apiVersion: v2
     appVersion: 1.1.117
-    created: "2020-12-14T01:42:36.8102435+01:00"
+    created: "2020-12-14T10:58:21.5901389+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -218,7 +218,7 @@ entries:
     version: 0.1.8
   - apiVersion: v2
     appVersion: 1.1.115
-    created: "2020-12-14T01:42:36.804246+01:00"
+    created: "2020-12-14T10:58:21.5838688+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -233,7 +233,7 @@ entries:
     version: 0.1.7
   - apiVersion: v2
     appVersion: 1.1.115
-    created: "2020-12-14T01:42:36.7962427+01:00"
+    created: "2020-12-14T10:58:21.5768716+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -248,7 +248,7 @@ entries:
     version: 0.1.6
   - apiVersion: v2
     appVersion: 1.1.115
-    created: "2020-12-14T01:42:36.7892456+01:00"
+    created: "2020-12-14T10:58:21.5698709+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -263,7 +263,7 @@ entries:
     version: 0.1.5
   - apiVersion: v2
     appVersion: 1.1.115
-    created: "2020-12-14T01:42:36.7822417+01:00"
+    created: "2020-12-14T10:58:21.5610994+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -278,7 +278,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.1.115
-    created: "2020-12-14T01:42:36.7772432+01:00"
+    created: "2020-12-14T10:58:21.5540981+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -293,7 +293,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-14T01:42:36.7722432+01:00"
+    created: "2020-12-14T10:58:21.5471012+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -308,7 +308,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-14T01:42:36.6972445+01:00"
+    created: "2020-12-14T10:58:21.4619667+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -323,7 +323,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2020-12-14T01:42:36.6892451+01:00"
+    created: "2020-12-14T10:58:21.4519737+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -336,4 +336,4 @@ entries:
     urls:
     - openflow-0.1.0.tgz
     version: 0.1.0
-generated: "2020-12-14T01:42:36.681242+01:00"
+generated: "2020-12-14T10:58:21.4419684+01:00"

@@ -34,15 +34,17 @@ openflow:
   nodered_initial_liveness_delay: 120
   stripe_api_key: 
   stripe_api_secret: 
-  api_rate_limit_points: 60
-  api_rate_limit_duration: 1
-  socket_rate_limit_points: 60
-  socket_rate_limit_duration: 1
-  log_queries: false
-  log_aggregates: false
-  log_inserts: false
-  log_updates: false
-  log_deletes: false
+  api_rate_limit:
+  api_rate_limit_points: 
+  api_rate_limit_duration: 
+  socket_rate_limit: 
+  socket_rate_limit_points: 
+  socket_rate_limit_duration:
+  log_queries: 
+  log_aggregates: 
+  log_inserts: 
+  log_updates: 
+  log_deletes: 
   aes_secret: who_ever_said_nodejs_isnt_sexy_should_be_shot_and_hanged
   nodered_allow_nodeselector: false
   nodered_requests_memory:
@@ -51,6 +53,7 @@ openflow:
   nodered_limits_memory:
   resources: {}
   api_ws_url:
+  prometheus_measure_nodeid: 
   # limits:
   #   #   cpu: "1"
   #   #memory: 1Gi
