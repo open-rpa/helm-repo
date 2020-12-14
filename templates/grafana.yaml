@@ -2,7 +2,7 @@
 {{- $domain := print (required "domain required!" .Values.domain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
 {{- $apidomain := $domain }}
 {{- if .Values.apidomain }}
-  {{- $dummy := set . "apidomain" (print .Values.apidomain "." (required "domainsuffix required!" .Values.domainsuffix)) }}
+  {{- $apidomain = print .Values.apidomain "." (required "domainsuffix required!" .Values.domainsuffix) }}
 {{- end }}
 {{- $apiuri := print .Values.protocol "://" $apidomain }}
 {{- if .Values.port }}
