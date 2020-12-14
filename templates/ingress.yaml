@@ -17,6 +17,13 @@ metadata:
   {{- if .Values.certresolver }}
     traefik.ingress.kubernetes.io/router.tls.certresolver: {{ .Values.certresolver | quote }}
   {{- end }}
+  {{- if .Values.certmain }}
+    traefik.ingress.kubernetes.io/router.tls.domains.0.main: {{ .Values.certmain | quote }}
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  {{- end }}
+  {{- if .Values.certsans }}
+    traefik.ingress.kubernetes.io/router.tls.domains.0.sans: {{ .Values.certsans | quote }}
+  {{- end }}
 {{- else }}
     traefik.ingress.kubernetes.io/router.entrypoints: web
 {{- end }}
@@ -73,6 +80,13 @@ metadata:
   {{- end }}
   {{- if .Values.certresolver }}
     traefik.ingress.kubernetes.io/router.tls.certresolver: {{ .Values.certresolver | quote }}
+  {{- end }}
+  {{- if .Values.certmain }}
+    traefik.ingress.kubernetes.io/router.tls.domains.0.main: {{ .Values.certmain | quote }}
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  {{- end }}
+  {{- if .Values.certsans }}
+    traefik.ingress.kubernetes.io/router.tls.domains.0.sans: {{ .Values.certsans | quote }}
   {{- end }}
 {{- else }}
     traefik.ingress.kubernetes.io/router.entrypoints: web
