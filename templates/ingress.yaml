@@ -1,7 +1,7 @@
 {{- $domain := print (required "domain required!" .Values.domain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
 {{- $apidomain := $domain }}
 {{- if .Values.apidomain }}
-  {{- $dummy := set . "apidomain" .Values.apidomain "." (required "domainsuffix required!" .Values.domainsuffix) }}
+  {{- $dummy := set . "apidomain" (.Values.apidomain "." (required "domainsuffix required!" .Values.domainsuffix)) }}
 {{- end }}
 apiVersion: extensions/v1beta1
 kind: Ingress
