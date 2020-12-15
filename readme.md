@@ -10,14 +10,11 @@ Create a file and call it demo1.yaml with this content
 # this will be the root domain name hence your openflow url will now be http://demo.mydomain.com 
 domainsuffix: mydomain.com # this will be added to all domain names
 domain: demo 
-# if traefic is for https using websecure, the you can uncomment the below 2 lines
-# you need to tell the name of the secret containing the certificate, I can recomend using kubed for replicating this
+# if using a reverse procy that add ssl, uncomment below line.
 # protocol: https
-# tlsSecret: wild.mydomain.com
 openflow:
 #  external_mongodb_url: mongodb+srv://user:pass@cluster0.gcp.mongodb.net?retryWrites=true&w=majority
 rabbitmq:
-  default_user: admin
   default_pass: supersecret
 # if you are using mpongodb atlas, or has mongodb running somewhere else
 # uncomment below line, and external_mongodb_url in openflow above
