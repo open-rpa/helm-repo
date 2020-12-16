@@ -39,7 +39,7 @@ openflow:
   supports_watch: true
   # openflow will keep track of all changes on all documents except inside these collections
   skip_history_collections: audit,jslog,openrpa_instances,configclients
-  websocket_max_package_count: 1048576
+  websocket_max_package_count: "1048576" # 1048576
   websocket_package_size: 4096
   websocket_disconnect_out_of_sync: # close connection for clients that send double packages, default false
   update_acl_based_on_groups: true # when a user is added to a role, that role is given read permission on the user, so all members of that role can see all members, can be disabled here
