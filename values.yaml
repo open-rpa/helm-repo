@@ -68,6 +68,8 @@ openflow:
   resources: {}
   api_ws_url: # force new nodereds and browser to use this url to access the api
   prometheus_measure_nodeid: # Collect prometheus metrics PER node in nodered ( default is per node type ), defualt: false
+  prometheus_measure_queued_messages: # Collect prometheus metrics for openflow/nodered on socket messages waiting on a reply, defualt: false
+  expected_max_roles: # to avoid dos we limited the number of roles, default 4000
   # limits:
   #   #   cpu: "1"
   #   #memory: 1Gi
