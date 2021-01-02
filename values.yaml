@@ -90,6 +90,7 @@ rabbitmq:
   #   # cpu: "0.02"
   #   memory: 256Mi
 grafana:
+  image: openiap/grafana:1.0.6 # set image used when deploying frafana
   oauth_client_id: application
   oauth_client_secret: secret
 prometheus:

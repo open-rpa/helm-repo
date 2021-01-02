@@ -31,7 +31,7 @@ spec:
       nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
       {{- end }}
       containers:
-        - image: openiap/grafana:1.0.5
+        - image: {{ .Values.grafana.image }}
           name: grafana
           ports:
             - containerPort: 3000
