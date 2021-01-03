@@ -183,6 +183,8 @@ spec:
               value: {{ .Values.openflow.prometheus_measure_nodeid  | quote }}
             - name: expected_max_roles
               value: {{ .Values.openflow.expected_max_roles  | quote }}
+            - name: validate_user_form
+              value: {{ .Values.openflow.validate_user_form  | quote }}              
 ---
 apiVersion: apps/v1
 kind: Deployment

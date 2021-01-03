@@ -5,7 +5,7 @@ entries:
       category: Database
     apiVersion: v2
     appVersion: 4.4.2
-    created: "2021-01-02T14:01:45.2940234+01:00"
+    created: "2021-01-03T23:26:41.0567356+01:00"
     dependencies:
     - name: common
       repository: https://charts.bitnami.com/bitnami
@@ -37,15 +37,30 @@ entries:
     version: 10.1.3
   openflow:
   - apiVersion: v2
-    appVersion: 1.1.154
-    created: "2021-01-02T14:01:45.2410234+01:00"
+    appVersion: 1.1.156
+    created: "2021-01-03T23:26:40.9977354+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
       repository: https://charts.bitnami.com/bitnami
       version: 10.x
     description: A Helm chart for deploying a single openflow instance
-    digest: e0a67a71b145c76e7434e8253834283b0ce723c700037da06def7184bd5c44f1
+    digest: 965332f141fd6a5ef6e7617eafb6517252b301e14be918a64684e1a80da220f6
+    name: openflow
+    type: application
+    urls:
+    - openflow-0.1.25.tgz
+    version: 0.1.25
+  - apiVersion: v2
+    appVersion: 1.1.155
+    created: "2021-01-03T23:26:40.9887344+01:00"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.x
+    description: A Helm chart for deploying a single openflow instance
+    digest: 8ec6325c30a19e73720543e58208a3ce213ee1a0613b634fbef06135827eee6b
     name: openflow
     type: application
     urls:
@@ -53,7 +68,7 @@ entries:
     version: 0.1.24
   - apiVersion: v2
     appVersion: 1.1.135
-    created: "2021-01-02T14:01:45.2350256+01:00"
+    created: "2021-01-03T23:26:40.980736+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -68,7 +83,7 @@ entries:
     version: 0.1.23
   - apiVersion: v2
     appVersion: 1.1.135
-    created: "2021-01-02T14:01:45.2200241+01:00"
+    created: "2021-01-03T23:26:40.9717356+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -83,7 +98,7 @@ entries:
     version: 0.1.22
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2021-01-02T14:01:45.1960277+01:00"
+    created: "2021-01-03T23:26:40.9457356+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -98,7 +113,7 @@ entries:
     version: 0.1.19
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2021-01-02T14:01:45.1890276+01:00"
+    created: "2021-01-03T23:26:40.9397375+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -113,7 +128,7 @@ entries:
     version: 0.1.18
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2021-01-02T14:01:45.1830277+01:00"
+    created: "2021-01-03T23:26:40.9337362+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -128,7 +143,7 @@ entries:
     version: 0.1.17
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2021-01-02T14:01:45.1770285+01:00"
+    created: "2021-01-03T23:26:40.927737+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -143,7 +158,7 @@ entries:
     version: 0.1.16
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2021-01-02T14:01:45.1710274+01:00"
+    created: "2021-01-03T23:26:40.9217364+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -158,7 +173,7 @@ entries:
     version: 0.1.15
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2021-01-02T14:01:45.1640269+01:00"
+    created: "2021-01-03T23:26:40.9157356+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -173,7 +188,7 @@ entries:
     version: 0.1.14
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2021-01-02T14:01:45.1580267+01:00"
+    created: "2021-01-03T23:26:40.9097346+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -188,7 +203,7 @@ entries:
     version: 0.1.13
   - apiVersion: v2
     appVersion: 1.1.130
-    created: "2021-01-02T14:01:45.1520254+01:00"
+    created: "2021-01-03T23:26:40.9037338+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -203,7 +218,7 @@ entries:
     version: 0.1.12
   - apiVersion: v2
     appVersion: 1.1.126
-    created: "2021-01-02T14:01:45.1450293+01:00"
+    created: "2021-01-03T23:26:40.8977458+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -218,7 +233,7 @@ entries:
     version: 0.1.11
   - apiVersion: v2
     appVersion: 1.1.125
-    created: "2021-01-02T14:01:45.1390293+01:00"
+    created: "2021-01-03T23:26:40.8907399+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -233,7 +248,7 @@ entries:
     version: 0.1.10
   - apiVersion: v2
     appVersion: 1.1.117
-    created: "2021-01-02T14:01:45.2880234+01:00"
+    created: "2021-01-03T23:26:41.0507351+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -248,7 +263,7 @@ entries:
     version: 0.1.9
   - apiVersion: v2
     appVersion: 1.1.117
-    created: "2021-01-02T14:01:45.2830233+01:00"
+    created: "2021-01-03T23:26:41.0437356+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -263,7 +278,7 @@ entries:
     version: 0.1.8
   - apiVersion: v2
     appVersion: 1.1.115
-    created: "2021-01-02T14:01:45.276023+01:00"
+    created: "2021-01-03T23:26:41.0377364+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -278,7 +293,7 @@ entries:
     version: 0.1.7
   - apiVersion: v2
     appVersion: 1.1.115
-    created: "2021-01-02T14:01:45.2670249+01:00"
+    created: "2021-01-03T23:26:41.0307355+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -293,7 +308,7 @@ entries:
     version: 0.1.6
   - apiVersion: v2
     appVersion: 1.1.115
-    created: "2021-01-02T14:01:45.2590233+01:00"
+    created: "2021-01-03T23:26:41.0227364+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -308,7 +323,7 @@ entries:
     version: 0.1.5
   - apiVersion: v2
     appVersion: 1.1.115
-    created: "2021-01-02T14:01:45.2530231+01:00"
+    created: "2021-01-03T23:26:41.0137355+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -323,7 +338,7 @@ entries:
     version: 0.1.4
   - apiVersion: v2
     appVersion: 1.1.115
-    created: "2021-01-02T14:01:45.2460233+01:00"
+    created: "2021-01-03T23:26:41.005736+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -338,7 +353,7 @@ entries:
     version: 0.1.3
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-01-02T14:01:45.2140279+01:00"
+    created: "2021-01-03T23:26:40.963735+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -353,7 +368,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-01-02T14:01:45.131023+01:00"
+    created: "2021-01-03T23:26:40.8847359+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -368,7 +383,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-01-02T14:01:45.1190223+01:00"
+    created: "2021-01-03T23:26:40.8747366+01:00"
     dependencies:
     - condition: mongodb.enabled
       name: mongodb
@@ -381,4 +396,4 @@ entries:
     urls:
     - openflow-0.1.0.tgz
     version: 0.1.0
-generated: "2021-01-02T14:01:45.1080234+01:00"
+generated: "2021-01-03T23:26:40.865741+01:00"
