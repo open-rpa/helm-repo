@@ -71,6 +71,7 @@ openflow:
   prometheus_measure_queued_messages: # Collect prometheus metrics for openflow/nodered on socket messages waiting on a reply, defualt: false
   expected_max_roles: # to avoid dos we limited the number of roles, default 4000
   validate_user_form: # User validation form, if set, will force all users to be fill out this form in order to login.
+  max_recursive_group_depth: # When calculating group members ships how many nested groups to go though, default 3
   # limits:
   #   #   cpu: "1"
   #   #memory: 1Gi
