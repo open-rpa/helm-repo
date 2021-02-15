@@ -47,18 +47,26 @@ spec:
               value: {{ .Values.grafana.oauth_client_id | quote }}
             - name: GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET
               value: {{ .Values.grafana.oauth_client_secret | quote }}
+            # - name: GF_AUTH_GENERIC_OAUTH_SCOPES
+            #   value: "user:email"
             - name: GF_AUTH_GENERIC_OAUTH_SCOPES
-              value: "user:email"
+              value: "openid"
             - name: GF_AUTH_GENERIC_OAUTH_EMAIL_ATTRIBUTE_PATH
               value: "email"
             - name: GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH
               value: "role"
+            # - name: GF_AUTH_GENERIC_OAUTH_AUTH_URL
+            #   value: "{{ $apiuri }}/oauth/login"
+            # - name: GF_AUTH_GENERIC_OAUTH_TOKEN_URL
+            #   value: "{{ $apiuri }}/oauth/token"
+            # - name: GF_AUTH_GENERIC_OAUTH_API_URL
+            #   value: "{{ $apiuri }}/oauth/authorize"
             - name: GF_AUTH_GENERIC_OAUTH_AUTH_URL
-              value: "{{ $apiuri }}/oauth/login"
+              value: "{{ $apiuri }}/oidc/auth"
             - name: GF_AUTH_GENERIC_OAUTH_TOKEN_URL
-              value: "{{ $apiuri }}/oauth/token"
+              value: "{{ $apiuri }}/oidc/token"
             - name: GF_AUTH_GENERIC_OAUTH_API_URL
-              value: "{{ $apiuri }}/oauth/authorize"
+              value: "{{ $apiuri }}/oidc/me"
             - name: GF_AUTH_DISABLE_LOGIN_FORM
               value: "true"
             - name: GF_AUTH_ANONYMOUS_ENABLED

@@ -9,6 +9,7 @@ certmain: # to predefine certificate name, set this, usefull if using wildcard c
 certsans: # set subjecter alternative names in the certificate. for instance: *.demo.openiap.io
 nodeSelector: {} # remeber to set under mongodb too
 port: # if the external port to access this is differente from 80/443, then set this the port users will access this instance on
+use_ingress_beta1_syntax: false
 openflow:
   image: openiap/openflow # set image for api deployment
   nodered_image: openiap/nodered # set image used when deploying new Nodered deployments
@@ -35,8 +36,10 @@ openflow:
   external_mongodb_url: 
   # if not using helm to deploy mongodb, set your desired database to use
   mongodb_db:
-  # if not using mongodb replicate set, you cannot use the watch feature, then set this to false
-  supports_watch: true
+  # if not using mongodb replicate set, you cannot use the watch feature, then set this to false, default: false
+  supports_watch: 
+  # Auto-create default indexes doing startup, default: true
+  ensure_indexes: 
   # openflow will keep track of all changes on all documents except inside these collections
   skip_history_collections: audit,jslog,openrpa_instances,configclients
   websocket_max_package_count: "1048576" # 1048576
@@ -49,16 +52,16 @@ openflow:
   stripe_api_key: 
   stripe_api_secret: 
   api_rate_limit: # to disable rate limits on all http requests, set this to false
-  api_rate_limit_points: # to change the amount of points a hit consume, defualt: 1
-  api_rate_limit_duration: # to change how long it takes for a point to expire in seconds, defualt: 60
+  api_rate_limit_points: # to change the amount of points a hit consume, default: 1
+  api_rate_limit_duration: # to change how long it takes for a point to expire in seconds, default: 60
   socket_rate_limit: # to disable rate limits on socket messages, set this to false
-  socket_rate_limit_points: # to change the amount of points a hit consume, defualt: 1
-  socket_rate_limit_duration: # to change how long it takes for a point to expire in seconds, defualt: 30
-  log_queries: # log all db queries to console, defualt: false
-  log_aggregates: # log all db aggregates to console, defualt: false
-  log_inserts: # log all db inserts to console, defualt: false
-  log_updates: # log all db updates to console, defualt: false
-  log_deletes: # log all db deletes to console, defualt: false
+  socket_rate_limit_points: # to change the amount of points a hit consume, default: 1
+  socket_rate_limit_duration: # to change how long it takes for a point to expire in seconds, default: 30
+  log_queries: # log all db queries to console, default: false
+  log_aggregates: # log all db aggregates to console, default: false
+  log_inserts: # log all db inserts to console, default: false
+  log_updates: # log all db updates to console, default: false
+  log_deletes: # log all db deletes to console, default: false
   aes_secret: who_ever_said_nodejs_isnt_sexy_should_be_shot_and_hanged # use this to encrypt parts of mongodb documents and hash user passwords
   nodered_allow_nodeselector: false # allow collection of all kubernete nodes labels and setting nodeSelector on nodered instances
   nodered_requests_memory: # set requested memory usage for new nodered instances, for instance: 128Mi
@@ -67,11 +70,16 @@ openflow:
   nodered_limits_cpu: # limit cpu usage for new nodered instances, for instance: 450n ( 1000n represents 1 vCPU )
   resources: {}
   api_ws_url: # force new nodereds and browser to use this url to access the api
-  prometheus_measure_nodeid: # Collect prometheus metrics PER node in nodered ( default is per node type ), defualt: false
-  prometheus_measure_queued_messages: # Collect prometheus metrics for openflow/nodered on socket messages waiting on a reply, defualt: false
+  prometheus_measure_nodeid: # Collect prometheus metrics PER node in nodered ( default is per node type ), default: false
+  prometheus_measure_queued_messages: # Collect prometheus metrics for openflow/nodered on socket messages waiting on a reply, default: false
+  prometheus_measure__mongodb_watch: # Collect prometheus metrics for open change streams to mongodb, default: false
+  prometheus_measure_onlineuser: # Collect prometheus metrics while updating onmline users every 10th second, default: false
   expected_max_roles: # to avoid dos we limited the number of roles, default 4000
+  decorate_roles_fetching_all_roles: # default true, will grab all roles from the database and find accumulated roles in that array, if set to false will do multiple queries to the database to find all nested roles for the user
+  roles_cached_in_seconds: # if decorate_roles_fetching_all_roles is true, how many seconds will we cache all roles, default is 300, to disable cache set to 0
+  max_recursive_group_depth: # if decorate_roles_fetching_all_roles is false, limit how many nested groups to go though, default 2
   validate_user_form: # User validation form, if set, will force all users to be fill out this form in order to login.
-  max_recursive_group_depth: # When calculating group members ships how many nested groups to go though, default 3
+  debug: # Configure logging for the debug plugin
   # limits:
   #   #   cpu: "1"
   #   #memory: 1Gi
