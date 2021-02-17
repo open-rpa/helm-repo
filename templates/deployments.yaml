@@ -74,6 +74,8 @@ spec:
               value: {{ .Values.openflow.api_rate_limit_duration | quote }}
             - name: supports_watch
               value: {{ .Values.openflow.supports_watch | quote }}
+            - name: ensure_indexes
+              value: {{ .Values.openflow.ensure_indexes | quote }}
             - name: license_key
               value: {{ default "" .Values.openflow.license_key | quote }}
             - name: stripe_api_key
@@ -183,12 +185,24 @@ spec:
               value: {{ .Values.openflow.nodered_limits_cpu  | quote }}
             - name: prometheus_measure_nodeid
               value: {{ .Values.openflow.prometheus_measure_nodeid  | quote }}
+            - name: prometheus_measure_queued_messages
+              value: {{ .Values.openflow.prometheus_measure_queued_messages  | quote }}
+            - name: prometheus_measure__mongodb_watch
+              value: {{ .Values.openflow.prometheus_measure__mongodb_watch  | quote }}
+            - name: prometheus_measure_onlineuser
+              value: {{ .Values.openflow.prometheus_measure_onlineuser  | quote }}
             - name: expected_max_roles
               value: {{ .Values.openflow.expected_max_roles  | quote }}
             - name: max_recursive_group_depth
               value: {{ .Values.openflow.max_recursive_group_depth  | quote }}              
+            - name: decorate_roles_fetching_all_roles
+              value: {{ .Values.openflow.decorate_roles_fetching_all_roles  | quote }}              
+            - name: roles_cached_in_seconds
+              value: {{ .Values.openflow.roles_cached_in_seconds  | quote }}              
             - name: validate_user_form
               value: {{ .Values.openflow.validate_user_form  | quote }}              
+            - name: DEBUG
+              value: {{ .Values.openflow.debug  | quote }}              
 ---
 apiVersion: apps/v1
 kind: Deployment
