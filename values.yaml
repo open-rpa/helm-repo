@@ -37,6 +37,8 @@ openflow:
   mongodb_db:
   # if not using mongodb replicate set, you cannot use the watch feature, then set this to false
   supports_watch: true
+  # To override the default minPoolSize of the database connection, usefull when needing a lot of watches or have many clients
+  mongodb_minpoolsize: 
   # openflow will keep track of all changes on all documents except inside these collections
   skip_history_collections: audit,jslog,openrpa_instances,configclients
   websocket_max_package_count: "1048576" # 1048576
