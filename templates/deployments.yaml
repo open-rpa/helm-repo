@@ -122,6 +122,8 @@ spec:
               value: {{ default "" .Values.openflow.auto_create_domains | quote }}
             - name: allow_user_registration
               value: {{ .Values.openflow.allow_user_registration | quote }}
+            - name: persist_user_impersonation
+              value: {{ .Values.openflow.persist_user_impersonation | quote }}
             - name: aes_secret
               value: {{ .Values.openflow.aes_secret | quote }}
             - name: tls_crt
@@ -203,6 +205,14 @@ spec:
               value: {{ .Values.openflow.validate_user_form  | quote }}              
             - name: DEBUG
               value: {{ .Values.openflow.debug  | quote }}              
+            - name: shorttoken_expires_in
+              value: {{ .Values.openflow.shorttoken_expires_in  | quote }}              
+            - name: longtoken_expires_in
+              value: {{ .Values.openflow.longtoken_expires_in  | quote }}              
+            - name: downloadtoken_expires_in
+              value: {{ .Values.openflow.downloadtoken_expires_in  | quote }}              
+            - name: personalnoderedtoken_expires_in
+              value: {{ .Values.openflow.personalnoderedtoken_expires_in  | quote }}              
 ---
 apiVersion: apps/v1
 kind: Deployment

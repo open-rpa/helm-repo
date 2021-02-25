@@ -20,6 +20,7 @@ openflow:
   allow_user_registration: true # Allow registering new users using openflow api
   allow_personal_nodered: true # enable the nodered tab in openflow
   auto_create_personal_nodered_group: true # to avoid users getting access denied first time creating nodered, pre-create the role and make user member of the role
+  persist_user_impersonation: # When impersonating, update on user object who you are impersonating, to persist the information
   # allow api node to listen on https, not recomended in docker, use a reverse proxy instead
   tls_crt: 
   tls_key: 
@@ -83,6 +84,10 @@ openflow:
   roles_cached_in_seconds: # if decorate_roles_fetching_all_roles is true, how many seconds will we cache all roles, default is 300, to disable cache set to 0
   max_recursive_group_depth: # if decorate_roles_fetching_all_roles is false, limit how many nested groups to go though, default 2
   validate_user_form: # User validation form, if set, will force all users to be fill out this form in order to login.
+  shorttoken_expires_in: # default 5m
+  longtoken_expires_in: # default: 365d
+  downloadtoken_expires_in: # default: 15m
+  personalnoderedtoken_expires_in: # default: 365d
   debug: # Configure logging for the debug plugin
   # limits:
   #   #   cpu: "1"
