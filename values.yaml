@@ -112,6 +112,10 @@ grafana:
   image: openiap/grafana:1.0.6 # set image used when deploying frafana
   oauth_client_id: application
   oauth_client_secret: secret
+  allow_embedding: true # set to true if you want to allow browsers to render Grafana in a <frame>, <iframe>, <embed> or <object>. default is false.
+  send_user_header: true # If enabled and user is not anonymous, data proxy will add X-Grafana-User header with username into the request, default is false.
+  reporting_enabled: false # sends usage counters to stats.grafana.org every 24 hours.
+  oauth_auto_login: true # Set to true to attempt login with OAuth automatically, skipping the login screen.
 prometheus:
   enabled: true
   exposed: false

@@ -81,6 +81,14 @@ spec:
 {{- else }}
               value: "{{ .Values.protocol }}://grafana.{{ $domain }}"
 {{- end }}
+            - name: GF_ALLOW_EMBEDDING
+              value: {{ .Values.grafana.allow_embedding | quote }}
+            - name: GF_SEND_USER_HEADER
+              value: {{ .Values.grafana.send_user_header | quote }}
+            - name: GF_REPORTING_ENABLED
+              value: {{ .Values.grafana.reporting_enabled | quote }}
+            - name: GF_OAUTH_AUTO_LOGIN
+              value: {{ .Values.grafana.oauth_auto_login | quote }}
           volumeMounts:
             - name: grafana-storage
               mountPath: /var/lib/grafana
@@ -105,6 +113,7 @@ kind: ConfigMap
 metadata:
   name: grafana-datasources
 data:
+{{- if .Values.grafana.openflow_datasource }}
   openflow.yaml: |-
     {
         "apiVersion": 1,
@@ -127,6 +136,8 @@ data:
             }
         ]
     }
+{{- end }}
+{{- if .Values.grafana.prometheus_datasource }}
   prometheus.yaml: |-
     {
         "apiVersion": 1,
@@ -142,6 +153,7 @@ data:
             }
         ]
     }
+{{- end }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
