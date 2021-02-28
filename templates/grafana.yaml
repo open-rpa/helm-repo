@@ -1,4 +1,4 @@
-{{- if .Values.openflow.license_key }}
+{{- if and .Values.openflow.license_key (eq .Values.prometheus.enabled true) }}
 {{- $domain := print (required "domain required!" .Values.domain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
 {{- $apidomain := $domain }}
 {{- if .Values.apidomain }}

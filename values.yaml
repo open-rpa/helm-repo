@@ -119,6 +119,12 @@ grafana:
 prometheus:
   enabled: true
   exposed: false
+exporter:
+  enabled: true
+  exposed: true
+jaeger:
+  enabled: true
+  exposed: true
 
 # Error: found in Chart.yaml, but missing in charts/ directory: 
 # helm dependency update

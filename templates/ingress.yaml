@@ -61,6 +61,31 @@ spec:
               serviceName: prometheus
               servicePort: prometheus
 {{- end }}
+{{- if and .Values.openflow.license_key (eq .Values.exporter.enabled true) (eq .Values.exporter.exposed true) }}
+    - host: "exporter.{{ $domain }}"
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: otel-collector
+              servicePort: collector
+    - host: "exporter.{{ $domain }}"
+      http:
+        paths:
+          - path: /metrics
+            backend:
+              serviceName: otel-collector
+              servicePort: 9464
+{{- end }}
+{{- if and .Values.openflow.license_key (eq .Values.jaeger.enabled true) (eq .Values.jaeger.exposed true) }}
+    - host: "jaeger.{{ $domain }}"
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: jaeger
+              servicePort: 16686
+{{- end }}
 {{- if and .Values.tlsSecret (eq .Values.protocol "https") }}
   tls:
     - secretName: {{ .Values.tlsSecret | quote }}
