@@ -38,7 +38,7 @@ data:
         loglevel: debug
       prometheus:
         endpoint: "0.0.0.0:9464"
-        namespace: otelcollector
+      #  namespace: otelcollector
       # prometheusremotewrite:
       #   endpoint: "http://prometheus:9090/api/prom/push"
     service:
@@ -47,7 +47,7 @@ data:
         metrics:
           receivers: [otlp]
           exporters: [prometheus]
-          processors: [batch]
+          processors: []
         traces:
           receivers: [otlp]
           exporters: [jaeger,logging]

@@ -193,6 +193,18 @@ spec:
               value: {{ .Values.openflow.prometheus_measure__mongodb_watch  | quote }}
             - name: prometheus_measure_onlineuser
               value: {{ .Values.openflow.prometheus_measure_onlineuser  | quote }}
+            - name: enable_analytics
+              value: {{ .Values.openflow.enable_analytics  | quote }}
+            - name: otel_trace_url
+              value: {{ .Values.openflow.otel_trace_url  | quote }}
+            - name: otel_metric_url
+              value: {{ .Values.openflow.otel_metric_url  | quote }}
+            - name: otel_servicename
+              value: {{ .Values.openflow.otel_servicename  | quote }}
+            - name: otel_trace_interval
+              value: {{ .Values.openflow.otel_trace_interval  | quote }}
+            - name: otel_metric_interval
+              value: {{ .Values.openflow.otel_metric_interval  | quote }}
             - name: expected_max_roles
               value: {{ .Values.openflow.expected_max_roles  | quote }}
             - name: max_recursive_group_depth

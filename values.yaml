@@ -79,6 +79,12 @@ openflow:
   prometheus_measure_queued_messages: # Collect prometheus metrics for openflow/nodered on socket messages waiting on a reply, default: false
   prometheus_measure__mongodb_watch: # Collect prometheus metrics for open change streams to mongodb, default: false
   prometheus_measure_onlineuser: # Collect prometheus metrics while updating onmline users every 10th second, default: false
+  enable_analytics: # Enable analytics
+  otel_trace_url: # Open Telemetry exporter trace URL
+  otel_metric_url: # Open Telemetry exporter metrix URL
+  otel_servicename: # Open Telemetry service name
+  otel_trace_interval: # Open Telemetry trace sending interval
+  otel_metric_interval: # Open Telemetry metric sending interval
   expected_max_roles: # to avoid dos we limited the number of roles, default 4000
   decorate_roles_fetching_all_roles: # default true, will grab all roles from the database and find accumulated roles in that array, if set to false will do multiple queries to the database to find all nested roles for the user
   roles_cached_in_seconds: # if decorate_roles_fetching_all_roles is true, how many seconds will we cache all roles, default is 300, to disable cache set to 0
