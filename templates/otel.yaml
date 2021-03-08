@@ -181,7 +181,7 @@ spec:
     - web
     - otlp
   routes:
-    - match: Host(`otel.{{$apidomain}}`)
+    - match: Host(`otel.{{$domain}}`)
       kind: Rule
       services:
         - name: otel-collector
