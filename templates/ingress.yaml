@@ -43,7 +43,7 @@ spec:
             backend:
               serviceName: rabbitmq
               servicePort: rabbitmq-mgnt
-{{- if .Values.openflow.license_key }}
+{{- if and .Values.openflow.license_key (eq .Values.grafana.enabled true) }}
     - host: "grafana.{{ $domain }}"
       http:
         paths:
@@ -52,14 +52,23 @@ spec:
               serviceName: grafana
               servicePort: grafana
 {{- end }}
-{{- if and .Values.openflow.license_key (eq .Values.prometheus.enabled true) (eq .Values.prometheus.exposed true) }}
-    - host: "prometheus.{{ $domain }}"
+{{- if and .Values.openflow.license_key (eq .Values.victoriametrics.enabled true) (eq .Values.victoriametrics.exposed true) }}
+    - host: "victoria.{{ $domain }}"
       http:
         paths:
           - path: /
             backend:
-              serviceName: prometheus
-              servicePort: prometheus
+              serviceName: victoriametrics
+              servicePort: victoriametrics
+{{- end }}
+{{- if and .Values.openflow.license_key (eq .Values.prometheus.enabled true) (eq .Values.prometheus.exposed true) }}
+    # - host: "prometheus.{{ $domain }}"
+    #   http:
+    #     paths:
+    #       - path: /
+    #         backend:
+    #           serviceName: prometheus
+    #           servicePort: prometheus
 {{- end }}
 {{- if and .Values.openflow.license_key (eq .Values.exporter.enabled true) (eq .Values.exporter.exposed true) }}
     - host: "exporter.{{ $domain }}"
@@ -68,14 +77,14 @@ spec:
           - path: /
             backend:
               serviceName: otel-collector
-              servicePort: collector
-    - host: "exporter.{{ $domain }}"
-      http:
-        paths:
-          - path: /metrics
-            backend:
-              serviceName: otel-collector
-              servicePort: 9464
+              servicePort: 55681
+    # - host: "metrics.{{ $domain }}"
+    #   http:
+    #     paths:
+    #       - path: /
+    #         backend:
+    #           serviceName: otel-collector
+    #           servicePort: prometheus
 {{- end }}
 {{- if and .Values.openflow.license_key (eq .Values.jaeger.enabled true) (eq .Values.jaeger.exposed true) }}
     - host: "jaeger.{{ $domain }}"

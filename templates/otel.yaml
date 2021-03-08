@@ -35,22 +35,39 @@ data:
         endpoint: jaeger:14250
         insecure: true
       logging:
-        loglevel: debug
+       loglevel: debug
       prometheus:
-        endpoint: "0.0.0.0:9464"
+       endpoint: "0.0.0.0:9464"
       #  namespace: otelcollector
-      # prometheusremotewrite:
-      #   endpoint: "http://prometheus:9090/api/prom/push"
+      prometheusremotewrite:
+        endpoint: "http://victoriametrics:8428/api/v1/write"
     service:
       extensions: [health_check, zpages]
       pipelines:
         metrics:
           receivers: [otlp]
-          exporters: [prometheus]
+          exporters: [prometheusremotewrite]
           processors: []
         traces:
           receivers: [otlp]
-          exporters: [jaeger,logging]
+          exporters: [jaeger]
+
+
+          
+#        traces:
+#          receivers: [otlp]
+#          exporters: [jaeger]
+#          exporters: [jaeger,logging]
+#          exporters: [prometheus]
+#        endpoint: "/api/prom/push"
+#        endpoint: "/api/v1/write"
+# prometheus:
+#     config:
+#       scrape_configs:
+#         - job_name: 'otel-collector'
+#           scrape_interval: 5s
+#           static_configs:
+#             - targets: [ 'localhost:55681' ]
 ---
 apiVersion: v1
 kind: Service
@@ -59,6 +76,7 @@ metadata:
   labels:
     app: opentelemetry
 spec:
+  type: NodePort
   ports:
     - name: otlp # Default endpoint for OpenTelemetry receiver.
       port: 55680
@@ -76,6 +94,8 @@ spec:
       port: 9464
     - name: collector # Default endpoint for querying metrics.
       port: 55681
+    - name: newport
+      port: 4317
   selector:
     app: opentelemetry
 ---
@@ -105,7 +125,7 @@ spec:
             - "--mem-ballast-size-mib=683"
             - "--log-level=DEBUG"
           # image: otel/opentelemetry-collector-dev:latest
-          image: otel/opentelemetry-collector:0.21.0
+          image: otel/opentelemetry-collector
           name: otel-collector
           resources:
             limits:
@@ -123,6 +143,7 @@ spec:
             - containerPort: 8888 # Default endpoint for querying metrics.
             - containerPort: 9464 # Prometheus exporter metrics
             - containerPort: 55681 # Collector port
+            - containerPort: 4317 # new port
           volumeMounts:
             - name: otel-collector-config-vol
               mountPath: /conf
@@ -150,6 +171,22 @@ spec:
 #                path: cert.pem
 #              - key: key.pem
 #                path: key.pem
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingressroute.otel
+spec:
+  entryPoints:
+    - web
+    - otlp
+  routes:
+    - match: Host(`otel.{{$apidomain}}`)
+      kind: Rule
+      services:
+        - name: otel-collector
+          port: 4317
+          scheme: h2c
 {{- end }}
 ---
 {{- if and .Values.openflow.license_key (eq .Values.exporter.enabled true) }}

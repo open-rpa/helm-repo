@@ -1,0 +1,45 @@
+{{- if and .Values.openflow.license_key (eq .Values.victoriametrics.enabled true) }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: victoriametrics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: victoriametrics
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: victoriametrics
+    spec:
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: victoriametrics-cont
+          image: victoriametrics/victoria-metrics
+          args:
+            - "-selfScrapeInterval=10s"
+          ports:
+            - containerPort: 8428
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: victoriametrics
+  labels:
+    name: victoriametrics
+spec:
+  type: NodePort
+  ports:
+    - port: 8428
+      targetPort: 8428
+      name: victoriametrics
+  selector:
+    app: victoriametrics
+{{- end }}
+
+

@@ -7,6 +7,7 @@
 {{- if .Values.port }}
   {{- $dummy := set . "apiuri" .Values.protocol ":" .Values.port "://" $apidomain }}
 {{- end }}
+{{- $oteluri := print "http://otel." $apidomain ":4317" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -60,6 +61,8 @@ spec:
               value: {{ .Values.openflow.log_updates | quote }}
             - name: log_deletes
               value: {{ .Values.openflow.log_deletes | quote }}
+            - name: log_otel_times
+              value: {{ .Values.openflow.log_otel_times | quote }}
             - name: socket_rate_limit
               value: {{ .Values.openflow.socket_rate_limit | quote }}
             - name: socket_rate_limit_points
@@ -195,10 +198,20 @@ spec:
               value: {{ .Values.openflow.prometheus_measure_onlineuser  | quote }}
             - name: enable_analytics
               value: {{ .Values.openflow.enable_analytics  | quote }}
+{{- if .Values.openflow.otel_trace_url }}
             - name: otel_trace_url
               value: {{ .Values.openflow.otel_trace_url  | quote }}
+{{- else }}
+            - name: otel_trace_url
+              value: "{{ $oteluri }}"
+{{- end }}
+{{- if .Values.openflow.otel_metric_url }}
             - name: otel_metric_url
               value: {{ .Values.openflow.otel_metric_url  | quote }}
+{{- else }}
+            - name: otel_metric_url
+              value: "{{ $oteluri }}"
+{{- end }}
             - name: otel_servicename
               value: {{ .Values.openflow.otel_servicename  | quote }}
             - name: otel_trace_interval

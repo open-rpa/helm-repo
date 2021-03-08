@@ -67,6 +67,7 @@ openflow:
   log_inserts: # log all db inserts to console, default: false
   log_updates: # log all db updates to console, default: false
   log_deletes: # log all db deletes to console, default: false
+  log_otel_times: # log otel timings (very spammy!), default: false
   aes_secret: who_ever_said_nodejs_isnt_sexy_should_be_shot_and_hanged # use this to encrypt parts of mongodb documents and hash user passwords
   nodered_allow_nodeselector: false # allow collection of all kubernete nodes labels and setting nodeSelector on nodered instances
   nodered_requests_memory: # set requested memory usage for new nodered instances, for instance: 128Mi
@@ -83,8 +84,8 @@ openflow:
   otel_trace_url: # Open Telemetry exporter trace URL
   otel_metric_url: # Open Telemetry exporter metrix URL
   otel_servicename: # Open Telemetry service name
-  otel_trace_interval: # Open Telemetry trace sending interval
-  otel_metric_interval: # Open Telemetry metric sending interval
+  otel_trace_interval: 5000 # Open Telemetry trace sending interval
+  otel_metric_interval: 5000 # Open Telemetry metric sending interval
   expected_max_roles: # to avoid dos we limited the number of roles, default 4000
   decorate_roles_fetching_all_roles: # default true, will grab all roles from the database and find accumulated roles in that array, if set to false will do multiple queries to the database to find all nested roles for the user
   roles_cached_in_seconds: # if decorate_roles_fetching_all_roles is true, how many seconds will we cache all roles, default is 300, to disable cache set to 0
@@ -115,6 +116,7 @@ rabbitmq:
   #   # cpu: "0.02"
   #   memory: 256Mi
 grafana:
+  enabled: true
   image: openiap/grafana:1.0.6 # set image used when deploying frafana
   oauth_client_id: application
   oauth_client_secret: secret
@@ -129,6 +131,9 @@ exporter:
   enabled: true
   exposed: true
 jaeger:
+  enabled: true
+  exposed: true
+victoriametrics:
   enabled: true
   exposed: true
 
