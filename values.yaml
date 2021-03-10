@@ -133,6 +133,8 @@ exporter:
 jaeger:
   enabled: true
   exposed: true
+  ephemeral: true
+  resources: {}
 victoriametrics:
   enabled: true
   exposed: true

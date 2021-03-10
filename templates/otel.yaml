@@ -190,6 +190,7 @@ spec:
 {{- end }}
 ---
 {{- if and .Values.openflow.license_key (eq .Values.exporter.enabled true) }}
+  {{- if eq .Values.jaeger.ephemeral false }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -204,6 +205,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
+  {{- end }}
 ---
 apiVersion: v1
 kind: Service
@@ -247,19 +249,23 @@ spec:
         - name: jaeger
           image: jaegertracing/all-in-one
           imagePullPolicy: IfNotPresent
+          resources:
+            {{- toYaml .Values.jaeger.resources | nindent 12 }}
           env:
             - name: SPAN_STORAGE_TYPE
               value: "badger"
             - name: BADGER_EPHEMERAL
-              value: "false"
+              value: {{ .Values.jaeger.ephemeral | quote }}
             - name: BADGER_DIRECTORY_VALUE
               value: "/badger/data"
             - name: BADGER_DIRECTORY_KEY
               value: "/badger/key"
+  {{- if eq .Values.jaeger.ephemeral false }}
           volumeMounts:
             - mountPath: /badger
               name: jaeger-storage
               subPath: badger
+  {{- end }}
           ports:
             - containerPort: 14250
               name: jaeger
@@ -267,8 +273,10 @@ spec:
             - containerPort: 16686
               name: jaegerui
               protocol: TCP
+  {{- if eq .Values.jaeger.ephemeral false }}
       volumes:
         - name: jaeger-storage
           persistentVolumeClaim:
             claimName: jaeger-storage
+  {{- end }}
 {{- end }}
