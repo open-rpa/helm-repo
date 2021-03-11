@@ -51,6 +51,8 @@ spec:
             failureThreshold: 5
             timeoutSeconds: 30
           env:
+            - name: getting_started_url
+              value: {{ .Values.openflow.getting_started_url | quote }}
             - name: log_queries
               value: {{ .Values.openflow.log_queries | quote }}
             - name: log_aggregates
