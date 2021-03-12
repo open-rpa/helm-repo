@@ -133,9 +133,14 @@ exporter:
   enabled: true
   exposed: true
 jaeger:
-  enabled: true
+  enabled: false
   exposed: true
   ephemeral: true
+  resources: {}
+zipkin:
+  enabled: false
+  exposed: false
+  cassandra: false
   resources: {}
 victoriametrics:
   enabled: true

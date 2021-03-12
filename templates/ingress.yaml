@@ -95,6 +95,15 @@ spec:
               serviceName: jaeger
               servicePort: 16686
 {{- end }}
+{{- if and .Values.openflow.license_key (eq .Values.zipkin.enabled true) (eq .Values.zipkin.exposed true) }}
+    - host: "zipkin.{{ $domain }}"
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: zipkin
+              servicePort: 9411
+{{- end }}
 {{- if and .Values.tlsSecret (eq .Values.protocol "https") }}
   tls:
     - secretName: {{ .Values.tlsSecret | quote }}
