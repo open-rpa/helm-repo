@@ -129,9 +129,11 @@ grafana:
 prometheus:
   enabled: true
   exposed: false
+  resources: {}
 exporter:
   enabled: true
   exposed: true
+  resources: {}
 jaeger:
   enabled: false
   exposed: true
@@ -142,9 +144,11 @@ zipkin:
   exposed: true
   cassandra: false
   resources: {}
+  cassandraresources: {}
 victoriametrics:
   enabled: true
   exposed: true
+  resources: {}
 
 # Error: found in Chart.yaml, but missing in charts/ directory: 
 # helm dependency update
