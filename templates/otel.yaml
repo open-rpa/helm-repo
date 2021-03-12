@@ -58,10 +58,10 @@ data:
 {{- if and (eq .Values.jaeger.enabled true) (eq .Values.zipkin.enabled true) }}
           exporters: [jaeger, zipkin]
 {{- end }}
-{{- if eq .Values.jaeger.enabled true }}
+{{- if and (eq .Values.jaeger.enabled true) (eq .Values.zipkin.enabled false) }}
           exporters: [jaeger]
 {{- end }}
-{{- if eq .Values.zipkin.enabled true }}
+{{- if and (eq .Values.jaeger.enabled false) (eq .Values.zipkin.enabled true) }}
           exporters: [zipkin]
 {{- end }}
 
@@ -204,7 +204,7 @@ spec:
           scheme: h2c
 {{- end }}
 ---
-{{- if and .Values.openflow.license_key (eq .Values.exporter.enabled true) }}
+{{- if and .Values.openflow.license_key (eq .Values.jaeger.enabled true) }}
   {{- if eq .Values.jaeger.ephemeral false }}
 apiVersion: v1
 kind: PersistentVolumeClaim

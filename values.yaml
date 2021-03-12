@@ -138,8 +138,8 @@ jaeger:
   ephemeral: true
   resources: {}
 zipkin:
-  enabled: false
-  exposed: false
+  enabled: true
+  exposed: true
   cassandra: false
   resources: {}
 victoriametrics:
