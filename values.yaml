@@ -128,7 +128,7 @@ grafana:
   reporting_enabled: false # sends usage counters to stats.grafana.org every 24 hours.
   oauth_auto_login: true # Set to true to attempt login with OAuth automatically, skipping the login screen.
 prometheus:
-  enabled: true
+  enabled: false
   exposed: false
   resources: {}
 exporter:
