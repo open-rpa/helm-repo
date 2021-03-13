@@ -1,14 +1,5 @@
 {{- if and .Values.openflow.license_key (eq .Values.exporter.enabled true) }}
 {{- $domain := print (required "domain required!" .Values.domain) "." (required "domainsuffix required!" .Values.domainsuffix) }}
-{{- $apidomain := $domain }}
-{{- if .Values.apidomain }}
-  {{- $apidomain = print .Values.apidomain "." (required "domainsuffix required!" .Values.domainsuffix) }}
-{{- end }}
-{{- $apiuri := print .Values.protocol "://" $apidomain }}
-{{- if .Values.port }}
-  {{- $dummy := set . "apiuri" .Values.protocol ":" .Values.port "://" $apidomain }}
-{{- end }}
-
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -16,7 +7,6 @@ metadata:
   labels:
     app: opentelemetry
 data:
-  # https://opentelemetry.io/docs/collector/configuration/#exporters
   otel-collector-config: |
     receivers:
       otlp:
@@ -57,12 +47,12 @@ data:
           processors: [batch]
 {{- if and (eq .Values.jaeger.enabled true) (eq .Values.zipkin.enabled true) }}
           exporters: [jaeger, zipkin]
-{{- end }}
-{{- if and (eq .Values.jaeger.enabled true) (eq .Values.zipkin.enabled false) }}
+{{- else if and (eq .Values.jaeger.enabled true) (eq .Values.zipkin.enabled false) }}
           exporters: [jaeger]
-{{- end }}
-{{- if and (eq .Values.jaeger.enabled false) (eq .Values.zipkin.enabled true) }}
+{{- else if and (eq .Values.jaeger.enabled false) (eq .Values.zipkin.enabled true) }}
           exporters: [zipkin]
+{{- else }}
+          exporters: []
 {{- end }}
 
           
@@ -80,6 +70,8 @@ data:
 #           scrape_interval: 5s
 #           static_configs:
 #             - targets: [ 'localhost:55681' ]
+# https://opentelemetry.io/docs/collector/configuration/#exporters
+
 ---
 apiVersion: v1
 kind: Service
@@ -133,8 +125,6 @@ spec:
       nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
       {{- end }}
       containers:
-          resources:
-            {{- toYaml .Values.exporter.resources | nindent 12 }}
         - command:
             - "/otelcol"
             - "--config=/conf/otel-collector-config.yaml"
@@ -142,6 +132,8 @@ spec:
             - "--mem-ballast-size-mib=683"
             - "--log-level=DEBUG"
           # image: otel/opentelemetry-collector-dev:latest
+          resources:
+            {{- toYaml .Values.exporter.resources | nindent 12 }}
           image: otel/opentelemetry-collector
           name: otel-collector
           ports:
@@ -296,7 +288,7 @@ spec:
 
 
 
-
+---
 {{- if and .Values.openflow.license_key (eq .Values.zipkin.enabled true) }}
   {{- if eq .Values.zipkin.cassandra true }}
 apiVersion: v1

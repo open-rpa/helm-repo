@@ -19,10 +19,10 @@ spec:
       nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
       {{- end }}
       containers:
-          resources:
-            {{- toYaml .Values.victoriametrics.resources | nindent 12 }}
         - name: victoriametrics-cont
           image: victoriametrics/victoria-metrics
+          resources:
+            {{- toYaml .Values.victoriametrics.resources | nindent 12 }}
           args:
             - "-selfScrapeInterval=10s"
           ports:
