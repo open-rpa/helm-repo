@@ -190,6 +190,8 @@ spec:
               value: {{ .Values.openflow.nodered_limits_memory  | quote }}
             - name: nodered_limits_cpu
               value: {{ .Values.openflow.nodered_limits_cpu  | quote }}
+            - name: nodered_liveness_failurethreshold
+              value: {{ .Values.openflow.nodered_liveness_failurethreshold  | quote }}              
             - name: prometheus_measure_nodeid
               value: {{ .Values.openflow.prometheus_measure_nodeid  | quote }}
             - name: prometheus_measure_queued_messages

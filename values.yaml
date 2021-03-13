@@ -76,6 +76,7 @@ openflow:
   nodered_requests_cpu: # set requested cpu usage for new nodered instances, for instance: 250n ( 1000n represents 1 vCPU )
   nodered_limits_memory: # limit memory usage for new nodered instances, for instance: 256Mi (kubernetes will restart the pod)
   nodered_limits_cpu: # limit cpu usage for new nodered instances, for instance: 450n ( 1000n represents 1 vCPU )
+  nodered_liveness_failurethreshold: # allow nodered liveness probe to fail this amount of times before restarting it, default 5
   resources: {}
   api_ws_url: # force new nodereds and browser to use this url to access the api
   prometheus_measure_nodeid: # Collect prometheus metrics PER node in nodered ( default is per node type ), default: false
