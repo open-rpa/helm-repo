@@ -121,37 +121,39 @@ rabbitmq:
   #   # cpu: "0.02"
   #   memory: 256Mi
 grafana:
-  enabled: true
-  image: openiap/grafana:1.0.6 # set image used when deploying frafana
+  enabled: false
+  image: openiap/grafana:1.0.22 # set image used when deploying frafana
   oauth_client_id: application
   oauth_client_secret: secret
   allow_embedding: true # set to true if you want to allow browsers to render Grafana in a <frame>, <iframe>, <embed> or <object>. default is false.
-  send_user_header: true # If enabled and user is not anonymous, data proxy will add X-Grafana-User header with username into the request, default is false.
+  send_user_header: false # If enabled and user is not anonymous, data proxy will add X-Grafana-User header with username into the request, default is false.
   reporting_enabled: false # sends usage counters to stats.grafana.org every 24 hours.
   oauth_auto_login: true # Set to true to attempt login with OAuth automatically, skipping the login screen.
+  openflow_datasource: true # inject openflow data source, this should be set to false after first deploy if you set alert manager credentials
+  prometheus_datasource: true # inject prometheus data source
 prometheus:
   enabled: false
   exposed: false
   resources: {}
 exporter:
-  enabled: true
-  exposed: true
+  enabled: false
+  exposed: false
   resources: {}
 jaeger:
   enabled: false
-  exposed: true
+  exposed: false
   ephemeral: true
   resources: {}
 zipkin:
-  enabled: true
-  exposed: true
+  enabled: false
+  exposed: false
   cassandra: false
   resources: {}
   cassandraresources: {}
   cassandrastoragesize: 10Gi
 victoriametrics:
-  enabled: true
-  exposed: true
+  enabled: false
+  exposed: false
   resources: {}
 
 # Error: found in Chart.yaml, but missing in charts/ directory: 
@@ -160,7 +162,7 @@ mongodb:
   enabled: true
   architecture: standalone
   metrics:
-    enabled: true
+    enabled: false
   auth:
     enabled: true
     username: openflow
