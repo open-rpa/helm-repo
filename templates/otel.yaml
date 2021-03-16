@@ -304,7 +304,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: {{ .Values.zipkin.cassandrastoragesize | quote }}
 ---
 apiVersion: v1
 kind: Service
@@ -346,10 +346,10 @@ spec:
       nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
       {{- end }}
       containers:
-          resources:
-            {{- toYaml .Values.zipkin.cassandraresources | nindent 12 }}
         - name: cassandra
           image: launcher.gcr.io/google/cassandra3
+          resources:
+            {{- toYaml .Values.zipkin.cassandraresources | nindent 12 }}
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /var/lib/cassandra
@@ -385,6 +385,7 @@ spec:
 ---
 # https://hub.docker.com/r/openzipkin/zipkin
 # https://github.com/openzipkin/zipkin/blob/master/zipkin-server/README.md
+# Adding auth https://gist.github.com/pbadenski/10069aaab5d8f0a2b2f8e943c2502e0e
 apiVersion: apps/v1
 kind: Deployment
 metadata:

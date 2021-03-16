@@ -3,10 +3,12 @@ domainsuffix:
 domain:
 apidomain:
 protocol: http # set the https if using tlsSecret or certresolver
-tlsSecret: # Add tlsSecret to all ingress controllers, handy if using certificate manager, or you imported your own certificate in a secret
-certresolver: # if you have added a certificate resolver to traefik, set it here also
-certmain: # to predefine certificate name, set this, usefull if using wildcard certificates, for instance: demo.openiap.io
-certsans: # set subjecter alternative names in the certificate. for instance: *.demo.openiap.io
+certificate:
+  create: false # Create a certificate, when using certificate manager
+  tlsSecret: # Add tlsSecret to all ingress controllers, handy if using certificate manager, or you imported your own certificate in a secret
+  certresolver: # if you have added a certificate resolver to traefik, set it here also
+  certmain: # to predefine certificate name, set this, usefull if using wildcard certificates, for instance: demo.openiap.io
+  certsans: # set subjecter alternative names in the certificate. for instance: *.demo.openiap.io
 nodeSelector: {} # remeber to set under mongodb too
 port: # if the external port to access this is differente from 80/443, then set this the port users will access this instance on
 use_ingress_beta1_syntax: false
@@ -146,6 +148,7 @@ zipkin:
   cassandra: false
   resources: {}
   cassandraresources: {}
+  cassandrastoragesize: 10Gi
 victoriametrics:
   enabled: true
   exposed: true

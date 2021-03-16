@@ -11,18 +11,18 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
 {{- if eq .Values.protocol "https" }}
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
-  {{- if .Values.tlsSecret }}
+  {{- if .Values.certificate.tlsSecret }}
     traefik.ingress.kubernetes.io/router.tls: "true"
   {{- end }}
-  {{- if .Values.certresolver }}
-    traefik.ingress.kubernetes.io/router.tls.certresolver: {{ .Values.certresolver | quote }}
-  {{- end }}
-  {{- if .Values.certmain }}
-    traefik.ingress.kubernetes.io/router.tls.domains.0.main: {{ .Values.certmain | quote }}
+  {{- if .Values.certificate.certresolver }}
+    traefik.ingress.kubernetes.io/router.tls.certresolver: {{ .Values.certificate.certresolver | quote }}
     traefik.ingress.kubernetes.io/router.tls: "true"
   {{- end }}
-  {{- if .Values.certsans }}
-    traefik.ingress.kubernetes.io/router.tls.domains.0.sans: {{ .Values.certsans | quote }}
+  {{- if .Values.certificate.certmain }}
+    traefik.ingress.kubernetes.io/router.tls.domains.0.main: {{ .Values.certificate.certmain | quote }}
+  {{- end }}
+  {{- if .Values.certificate.certsans }}
+    traefik.ingress.kubernetes.io/router.tls.domains.0.sans: {{ .Values.certificate.certsans | quote }}
   {{- end }}
 {{- else }}
     traefik.ingress.kubernetes.io/router.entrypoints: web
@@ -104,9 +104,9 @@ spec:
               serviceName: zipkin
               servicePort: 9411
 {{- end }}
-{{- if and .Values.tlsSecret (eq .Values.protocol "https") }}
+{{- if and .Values.certificate.tlsSecret (eq .Values.protocol "https") }}
   tls:
-    - secretName: {{ .Values.tlsSecret | quote }}
+    - secretName: {{ .Values.certificate.tlsSecret | quote }}
 {{- end }}
 ---
 {{ $ingress := (lookup "extensions/v1beta1" "Ingress" .Release.Namespace "useringress") }}
@@ -118,18 +118,18 @@ metadata:
     kubernetes.io/ingress.class: traefik
 {{- if eq .Values.protocol "https" }}
     traefik.ingress.kubernetes.io/router.entrypoints: web, websecure
-  {{- if .Values.tlsSecret }}
+  {{- if .Values.certificate.tlsSecret }}
     traefik.ingress.kubernetes.io/router.tls: "true"
   {{- end }}
-  {{- if .Values.certresolver }}
-    traefik.ingress.kubernetes.io/router.tls.certresolver: {{ .Values.certresolver | quote }}
+  {{- if .Values.certificate.certresolver }}
+    traefik.ingress.kubernetes.io/router.tls.certresolver: {{ .Values.certificate.certresolver | quote }}
   {{- end }}
-  {{- if .Values.certmain }}
-    traefik.ingress.kubernetes.io/router.tls.domains.0.main: {{ .Values.certmain | quote }}
+  {{- if .Values.certificate.certmain }}
+    traefik.ingress.kubernetes.io/router.tls.domains.0.main: {{ .Values.certificate.certmain | quote }}
     traefik.ingress.kubernetes.io/router.tls: "true"
   {{- end }}
-  {{- if .Values.certsans }}
-    traefik.ingress.kubernetes.io/router.tls.domains.0.sans: {{ .Values.certsans | quote }}
+  {{- if .Values.certificate.certsans }}
+    traefik.ingress.kubernetes.io/router.tls.domains.0.sans: {{ .Values.certificate.certsans | quote }}
   {{- end }}
 {{- else }}
     traefik.ingress.kubernetes.io/router.entrypoints: web
@@ -158,7 +158,7 @@ spec:
     {{ end }}
   {{ end }}
 {{ end }}
-{{- if .Values.tlsSecret }}
+{{- if .Values.certificate.tlsSecret }}
   tls:
-    - secretName: {{ .Values.tlsSecret }}
+    - secretName: {{ .Values.certificate.tlsSecret }}
 {{- end }}
