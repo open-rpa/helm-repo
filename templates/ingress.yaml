@@ -36,6 +36,7 @@ spec:
             backend:
               serviceName: api
               servicePort: www
+{{- if eq .Values.rabbitmq.exposed true }}
     - host: "mq.{{ $domain }}"
       http:
         paths:
@@ -43,6 +44,7 @@ spec:
             backend:
               serviceName: rabbitmq
               servicePort: rabbitmq-mgnt
+{{- end }}
 {{- if and .Values.openflow.license_key (eq .Values.grafana.enabled true) }}
     - host: "grafana.{{ $domain }}"
       http:

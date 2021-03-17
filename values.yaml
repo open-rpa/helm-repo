@@ -109,6 +109,7 @@ openflow:
   #   # cpu: "0.02"
   #   memory: 128Mi
 rabbitmq:
+  exposed: false
   default_user: admin
   # vm_memory_high_watermark: 1GB
   default_pass: 
