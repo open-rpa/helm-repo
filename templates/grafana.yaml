@@ -89,6 +89,24 @@ spec:
               value: {{ .Values.grafana.reporting_enabled | quote }}
             - name: GF_OAUTH_AUTO_LOGIN
               value: {{ .Values.grafana.oauth_auto_login | quote }}
+{{- if eq .Values.grafana.smtp.enabled true }}
+            - name: GF_SMTP_ENABLED
+              value: {{ .Values.grafana.smtp.enabled | quote }}
+            - name: GF_SMTP_HOST
+              value: {{ .Values.grafana.smtp.host | quote }}
+            - name: GF_SMTP_USER
+              value: {{ .Values.grafana.smtp.user | quote }}
+            - name: GF_SMTP_PASSWORD
+              value: {{ .Values.grafana.smtp.password | quote }}
+            - name: GF_SMTP_FROM_ADDRESS
+              value: {{ .Values.grafana.smtp.from | quote }}
+            - name: GF_SMTP_FROM_NAME
+  {{- if .Values.grafana.smtp.fromname }}
+              value: {{ .Values.grafana.smtp.fromname | quote }}
+  {{- else }}              
+              value: "Grafana {{ $domain }}"
+  {{- end }}
+{{- end }}
           volumeMounts:
             - name: grafana-storage
               mountPath: /var/lib/grafana

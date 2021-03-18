@@ -132,6 +132,13 @@ grafana:
   oauth_auto_login: true # Set to true to attempt login with OAuth automatically, skipping the login screen.
   openflow_datasource: true # inject openflow data source, this should be set to false after first deploy if you set alert manager credentials
   prometheus_datasource: true # inject prometheus data source
+  smtp:
+    enabled: false
+    host: 
+    user: 
+    password:
+    from:
+    fromname:
 prometheus:
   enabled: false
   exposed: false
@@ -155,6 +162,8 @@ zipkin:
 victoriametrics:
   enabled: false
   exposed: false
+  persistence: false
+  persistencestoragesize: 10Gi
   resources: {}
 
 # Error: found in Chart.yaml, but missing in charts/ directory: 
