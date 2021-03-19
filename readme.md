@@ -16,10 +16,11 @@ openflow:
 #  external_mongodb_url: mongodb+srv://user:pass@cluster0.gcp.mongodb.net?retryWrites=true&w=majority
 rabbitmq:
   default_pass: supersecret
-# if you are using mpongodb atlas, or has mongodb running somewhere else
-# uncomment below line, and external_mongodb_url in openflow above
-# mongodb:
-#   enabled: false
+mongodb:
+  enabled: true
+# if you are using mongodb atlas, or has mongodb running somewhere else
+# uncomment below lines, set enabled: false and set external_mongodb_url in openflow above
+  architecture: replicaset
 ```
 
 First add the helm repo and  create a new namespace called demo1
